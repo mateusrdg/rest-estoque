@@ -30,21 +30,14 @@ public class EstoqueServiceImpl implements EstoqueService {
     }
 
     @Override
-    public Estoque inserir(Estoque obj) {
-        Optional<Estoque> sku = repository.findBySku(obj.getSku());
+    public Estoque inserir(Estoque estoque) {
+        Optional<Estoque> sku = repository.findBySku(estoque.getSku());
         if (sku.isPresent()) {
             throw new DataIntegratyViolationException("Sku já existe");
         }
-        Estoque estoque = new Estoque();
-        if (obj.getQuantidade() <= 0) {
-            estoque.setEmEstoque(false);
-            estoque.setSku(obj.getSku());
-            estoque.setQuantidade(obj.getQuantidade());
-        }
-        else {
+
+        if (estoque.getEmEstoque() == null) {
             estoque.setEmEstoque(true);
-            estoque.setSku(obj.getSku());
-            estoque.setQuantidade(obj.getQuantidade());
         }
         return this.repository.save(estoque);
     }

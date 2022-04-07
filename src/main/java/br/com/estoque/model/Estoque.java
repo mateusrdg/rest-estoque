@@ -1,5 +1,6 @@
 package br.com.estoque.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
@@ -9,6 +10,8 @@ public class Estoque {
 
     private String sku;
     private Integer quantidade;
+
+    @JsonProperty(value = "em_estoque")
     private Boolean emEstoque;
 
     public Estoque() {
